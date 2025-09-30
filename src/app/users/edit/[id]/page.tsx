@@ -17,7 +17,7 @@ export default async function EditUserPage({
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <EditUserForm user={user} />
+      <EditUserForm user={{ ...user, name: user.name ?? "", id: String(user.id) }} />
     </div>
   );
 }

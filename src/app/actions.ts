@@ -4,7 +4,7 @@
 import prisma from './lib/prisma'; // Your singleton Prisma client
 import { UserSchema, UserSchemaType } from './schemas/user';
 import { revalidatePath } from 'next/cache';
-import { Prisma } from '@prisma/client'; // Import Prisma types if needed for return type
+
 
 // ------------------------------------------------------------------
 // DATA INSERTION (Existing function)
@@ -96,7 +96,7 @@ export async function editUser(id: number, data: { name?: string; email?: string
     });
 
     return { success: true, user: updatedUser, message: "User updated successfully" };
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error editing user:", error);
     return { success: false, message: "Failed to update user" };
   }

@@ -299,7 +299,12 @@ export default function UsersPage() {
   const fetchUsers = React.useCallback(async () => {
     try {
       const users = await getAllUsers()
-      setData(users)
+      setData(
+        users.map((user: { id: number; name: string | null; email: string }) => ({
+          ...user,
+          name: user.name ?? "",
+        }))
+      )
     } catch (error) {
       console.error('Error fetching users:', error)
     } finally {

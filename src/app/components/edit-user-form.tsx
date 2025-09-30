@@ -20,7 +20,7 @@ import {
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export function EditUserForm({ user }: { user: any }) {
+export function EditUserForm({ user }: { user: UserSchemaType & { id: string } }) {
   const router = useRouter();
   const [loading, setLoading] = React.useState(true);
 
@@ -40,9 +40,10 @@ export function EditUserForm({ user }: { user: any }) {
   }, [user]);
 
   async function onSubmit(values: UserSchemaType) {
-    const result = await editUser(user.id, values);
+    const result = await editUser(Number(user.id), values);
 
     if (result.success) {
+      
       toast.success(result.message);
       router.push("/users");
       router.refresh();
