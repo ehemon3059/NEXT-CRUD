@@ -22,7 +22,7 @@ import Link from "next/link";
 
 export function EditUserForm({ user }: { user: UserSchemaType & { id: string } }) {
   const router = useRouter();
-  const [loading, setLoading] = React.useState(true);
+
 
   const form = useForm<UserSchemaType>({
     resolver: zodResolver(UserSchema),
@@ -31,13 +31,6 @@ export function EditUserForm({ user }: { user: UserSchemaType & { id: string } }
       email: user?.email || "",
     },
   });
-
-  // Set loading to false once component mounts and form is ready
-  React.useEffect(() => {
-    if (user) {
-      setLoading(false);
-    }
-  }, [user]);
 
   async function onSubmit(values: UserSchemaType) {
     const result = await editUser(Number(user.id), values);
@@ -56,17 +49,7 @@ export function EditUserForm({ user }: { user: UserSchemaType & { id: string } }
     }
   }
 
-  // Show loading state
-  if (loading) {
-    return (
-      <div className="w-full max-w-sm p-6 bg-white shadow-xl rounded-lg border">
-        <div className="flex flex-col items-center justify-center space-y-4">
-          <div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-gray-600">Loading user data...</p>
-        </div>
-      </div>
-    );
-  }
+
 
   return (
     <div className="w-full max-w-sm p-6 bg-white shadow-xl rounded-lg border">
