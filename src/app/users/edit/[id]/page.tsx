@@ -21,3 +21,10 @@ export default async function EditUserPage({
     </div>
   );
 }
+
+
+// Optional: Add metadata for SEO
+export const metadata = {
+  title: "Edit User | Update User ",
+  description: "Edit and update user details",
+};

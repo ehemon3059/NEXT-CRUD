@@ -9,6 +9,9 @@ import { editUser } from "../actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+
+import { redirect } from "next/navigation";
+
 import {
   Form,
   FormControl,
@@ -17,11 +20,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useRouter } from "next/navigation";
+
 import Link from "next/link";
 
-export function EditUserForm({ user }: { user: UserSchemaType & { id: string } }) {
-  const router = useRouter();
+export function EditUserForm({ user }: { user: UserSchemaType & { id: number } }) {
+
 
 
   const form = useForm<UserSchemaType>({
@@ -38,8 +41,8 @@ export function EditUserForm({ user }: { user: UserSchemaType & { id: string } }
     if (result.success) {
       
       toast.success(result.message);
-      router.push("/users");
-      router.refresh();
+     redirect("/users"); // This will redirect on the server
+     // router.refresh();
     } else {
       toast.error(result.message);
 
@@ -109,3 +112,4 @@ export function EditUserForm({ user }: { user: UserSchemaType & { id: string } }
     </div>
   );
 }
+
