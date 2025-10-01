@@ -1,0 +1,19 @@
+EH License v1.0
+
+Copyright (c) 2025 EH Emon
+
+Permission is granted, free of charge, to any person obtaining a copy of this
+software and associated documentation files (the "Software"), to use, copy,
+modify, and distribute the Software for personal, educational, or commercial
+purposes, provided that credit is given to the original author: EH Emon.
+
+This project is currently provided free of charge. However, future versions of
+the EH License may introduce paid or commercial licensing terms. Users must
+review the license version that applies to the software they obtain.
+
+The Software is provided "as is", without warranty of any kind, express or
+implied, including but not limited to the warranties of merchantability,
+fitness for a particular purpose and noninfringement. In no event shall the
+author be liable for any claim, damages, or other liability, whether in an
+action of contract, tort, or otherwise, arising from, out of, or in connection
+with the Software or the use or other dealings in the Software.
