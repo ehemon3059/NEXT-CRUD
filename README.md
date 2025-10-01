@@ -313,21 +313,4 @@ npx prisma migrate reset
 npx prisma migrate dev
 ```
 
-```
-
-## 📄 License
-
-This project is open-source and available under the MIT License.
-
-## 🆘 Need Help?
-
-- **Next.js Discord**: [discord.gg/nextjs](https://discord.gg/nextjs)
-- **Prisma Discord**: [pris.ly/discord](https://pris.ly/discord)
-- **Stack Overflow**: Tag your questions with `next.js` and `prisma`
-- **GitHub Issues**: Report bugs or request features
-
----
-
-**Happy Coding! 🚀**
-
-Built with ❤️ using Next.js 14, Prisma, and PostgreSQL
+Built witsing Next.js 14, Prisma, and PostgreSQL
