@@ -152,45 +152,7 @@ npx prisma migrate dev --name init
 # 3. Generate Prisma Client
 ```
 
-#### Optional: Seed Database with Sample Data
 
-Create `prisma/seed.ts`:
-
-```typescript
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
-async function main() {
-  await prisma.user.createMany({
-    data: [
-      { name: 'John Doe', email: 'john@example.com' },
-      { name: 'Jane Smith', email: 'jane@example.com' },
-      { name: 'Bob Johnson', email: 'bob@example.com' },
-    ],
-  });
-}
-
-main()
-  .catch((e) => console.error(e))
-  .finally(async () => await prisma.$disconnect());
-```
-
-Add to `package.json`:
-
-```json
-{
-  "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
-  }
-}
-```
-
-Run seed:
-
-```bash
-npx prisma db seed
-```
 
 ### Step 6: Run the Development Server
 
