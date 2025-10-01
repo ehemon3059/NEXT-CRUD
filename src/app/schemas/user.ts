@@ -13,4 +13,14 @@ export const UserSchema = z.object({
   }),
 });
 
+// ✅ NEW: Schema for editing (includes ID)
+export const UserWithIdSchema = UserSchema.extend({
+  id: z.number(),
+});
+
+// Export types
 export type UserSchemaType = z.infer<typeof UserSchema>;
+export type UserWithIdType = z.infer<typeof UserWithIdSchema>;
+
+// OR if you prefer a simpler approach without Zod:
+export type UserWithId = UserSchemaType & { id: number };

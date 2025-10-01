@@ -339,7 +339,7 @@ export default function UsersTableClient({
   );
 
   return (
-    <div className="min-w-5xl p-6 bg-white rounded-lg shadow">
+    <div className="w-full max-w-5xl p-6 bg-white rounded-lg shadow">
       <h1 className="text-2xl font-bold mb-4 text-center">All Users</h1>
       <DataTable data={data} columns={columns} />
       <Button asChild className="mt-4">

@@ -4,14 +4,11 @@
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UserSchema, UserSchemaType } from "../schemas/user";
+import { UserSchema, UserSchemaType, UserWithId } from "../schemas/user"; // ✅ Import the new type
 import { editUser } from "../actions"; 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-
-import { redirect } from "next/navigation";
-
 import {
   Form,
   FormControl,
@@ -20,29 +17,28 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export function EditUserForm({ user }: { user: UserSchemaType & { id: number } }) {
-
-
+// ✅ SOLUTION: Use the proper type
+export function EditUserForm({ user }: { user: UserWithId }) {
+  const router = useRouter();
 
   const form = useForm<UserSchemaType>({
     resolver: zodResolver(UserSchema),
     defaultValues: {
-      name: user?.name || "",
-      email: user?.email || "",
+      name: user.name,
+      email: user.email,
     },
   });
 
   async function onSubmit(values: UserSchemaType) {
-    const result = await editUser(Number(user.id), values);
+    const result = await editUser(user.id, values); // ✅ user.id is now properly typed
 
     if (result.success) {
-      
       toast.success(result.message);
-     redirect("/users"); // This will redirect on the server
-     // router.refresh();
+      router.push("/users"); // ✅ Fixed: using router.push instead of redirect
+      router.refresh();
     } else {
       toast.error(result.message);
 
@@ -51,8 +47,6 @@ export function EditUserForm({ user }: { user: UserSchemaType & { id: number } }
       }
     }
   }
-
-
 
   return (
     <div className="w-full max-w-sm p-6 bg-white shadow-xl rounded-lg border">
@@ -99,17 +93,15 @@ export function EditUserForm({ user }: { user: UserSchemaType & { id: number } }
         </form>
       </Form>
 
-        <Button asChild className="mt-5 mb-5">
-          <Link href="/">Create User</Link>
-        </Button>
-
+      <Button asChild className="mt-5 mb-5">
+        <Link href="/">Create User</Link>
+      </Button>
 
       <Button className="ml-5">
-        <Link href="/users" >
+        <Link href="/users">
           View All Users
         </Link>
       </Button>
     </div>
   );
 }
-
