@@ -4,13 +4,27 @@
 import prisma from './lib/prisma';
 import { UserSchema, UserSchemaType } from './schemas/user';
 import { revalidatePath } from 'next/cache';
+import { auth } from '../../auth'; // 👈 Import the auth function
+
+// Helper function to enforce authentication
+async function checkAuth() {
+  const session = await auth();
+  if (!session?.user) {
+    throw new Error('Unauthorized access: User not authenticated.');
+  }
+  return session;
+}
 
 // ------------------------------------------------------------------
-// DATA INSERTION
+// DATA INSERTION (NOW PROTECTED)
 // ------------------------------------------------------------------
 export async function createUser(data: UserSchemaType) {
+  await checkAuth(); // 👈 Enforce Auth Check
+
+  // ... (rest of your existing createUser logic)
   const validation = UserSchema.safeParse(data);
 
+  // ... (validation code)
   if (!validation.success) {
     return {
       success: false,
@@ -58,9 +72,11 @@ export async function createUser(data: UserSchemaType) {
 }
 
 // ------------------------------------------------------------------
-// DATA RETRIEVAL
+// DATA RETRIEVAL (NOW PROTECTED)
 // ------------------------------------------------------------------
 export async function getAllUsers() {
+  await checkAuth(); // 👈 Enforce Auth Check
+  
   try {
     const users = await prisma.user.findMany({
       orderBy: {
@@ -80,9 +96,12 @@ export async function getAllUsers() {
 }
 
 // ------------------------------------------------------------------
-// EDIT USER
+// EDIT USER (NOW PROTECTED)
 // ------------------------------------------------------------------
 export async function editUser(id: number, data: { name?: string; email?: string }) {
+  await checkAuth(); // 👈 Enforce Auth Check
+
+  // ... (rest of your existing editUser logic)
   try {
     if (data.email) {
       const existingUser = await prisma.user.findUnique({
@@ -124,9 +143,12 @@ export async function editUser(id: number, data: { name?: string; email?: string
 }
 
 // ------------------------------------------------------------------
-// GET SINGLE USER
+// GET SINGLE USER (NOW PROTECTED)
 // ------------------------------------------------------------------
 export async function getUserById(id: number) {
+  await checkAuth(); // 👈 Enforce Auth Check
+
+  // ... (rest of your existing getUserById logic)
   try {
     return await prisma.user.findUnique({
       where: { id },
@@ -140,9 +162,12 @@ export async function getUserById(id: number) {
 }
 
 // ------------------------------------------------------------------
-// DELETE USER
+// DELETE USER (NOW PROTECTED)
 // ------------------------------------------------------------------
 export async function deleteUser(id: number) {
+  await checkAuth(); // 👈 Enforce Auth Check
+
+  // ... (rest of your existing deleteUser logic)
   try {
     await prisma.user.delete({
       where: { id },
